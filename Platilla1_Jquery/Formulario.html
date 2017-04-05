@@ -42,13 +42,31 @@
             $("#MiBtn").hide();
             $("#loadgif").show(2000);
               setTimeout(function(){
-                 $("#loadgif").hide(4000);
-                 swal("Hecho!", "Su información ha sido enviada", "success");
-                 $("input").val("");
-                 $("data-success").val("");
-                 $("#txtNombres").val() == "";
-                 $("#MiBtn").show(5000);
-            }, 4000);
+                //conexión via Ajax
+                  var Datos=
+                        "?nombres=" + $("#txtNombres").val() +
+                        "&telefono=" + $("#txtCel").val() +
+                        "&emailto=" + $("#txtCorreo").val() +  
+                        "&mensaje=" + $("#txtEdad").val() +  
+                        "&emailcc=luis.silva@bit.institute";
+                        $.ajax({
+                            type: "GET",
+                            url: "http://ciclo1.bit.institute/api/correos" + Datos,
+                            dataType: 'application/json; charset=UTF-8',
+                            success: function (data) {
+                                //alerta("Datos enviados de forma exitosa.")
+                            },
+                            error:function(data1){
+                                //alert("No hay conexión con el servidor")
+                            }
+                        });
+                      $("#loadgif").hide(4000);
+                      swal("Hecho!", "Su información ha sido enviada", "success");
+                      $("input").val("");
+                      $("data-success").val("");
+                      $("#txtNombres").val() == "";
+                      $("#MiBtn").show(5000);
+                  }, 4000);
             
           }
         });  
